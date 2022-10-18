@@ -1,0 +1,2261 @@
+{
+  "$id": "https://roostify.com/forms/draft/2022-10/schema",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Roostify Forms Schema",
+  "description": "A schema that validates a Roostify form definition",
+  "type": "object",
+  "patternProperties": {
+    "^.*$": {
+      "additionalProperties": false,
+      "properties": {
+        "group": {
+          "description": "Groups multiple form sections under a single top-level item in the navigation tree.",
+          "type": "string"
+        },
+        "partial": {
+          "description": "Indicates which view partial should be used to render the form step.",
+          "type": "string"
+        },
+        "step_identifier": {
+          "description": "A unique identifier for the form step",
+          "type": "string"
+        },
+        "step_name": {
+          "description": "A text label for the form step shown in the UI",
+          "type": "string"
+        },
+        "sub_steps": {
+          "$ref": "#/$definitions/sub_steps"
+        }
+      },
+      "required": [
+        "partial",
+        "step_name",
+        "sub_steps"
+      ],
+      "type": "object"
+    }
+  },
+  "$definitions": {
+    "component": {
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "analytics"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/analytics"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "page_title"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/page_title"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "section"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/section"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "columned_fields"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/columned_fields"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "text_field"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/text_field"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "select"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/select"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "checkbox"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/checkbox"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "email_field"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/email_field"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "phone_field"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/phone_field"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "component_header"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/component_header"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "section_title"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/section_title"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "address_one_field"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/address_one_field"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "zip_field"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/zip_field"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "date_input"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/date_input"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "button_group"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/button_group"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "currency"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/currency"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "recurring_section"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/recurring_section"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "radio_button_collection"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/radio_button_collection"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "checkbox_collection"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/checkbox_collection"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "modal"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/modal"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "number_field"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/number_field"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "hidden_field"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/hidden_field"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "ssn_field"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/ssn_field"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "body_paragraph"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/body_paragraph"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "applicant_select_shared"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/applicant_select_shared"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "percentage_field"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/percentage_field"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "financial_assets_declaration"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/financial_assets_declaration"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "voa_generator_v2"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/voa_generator_v2"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "declaration"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/declaration"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "section_divider"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/section_divider"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "section_border"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/section_border"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "text_area"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/text_area"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "date_select"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/date_select"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "pack_v2"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/pack_v2"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "paragraph"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$components/paragraph"
+          }
+        }
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "address_one_field",
+            "analytics",
+            "applicant_select_shared",
+            "body_paragraph",
+            "button_group",
+            "checkbox",
+            "checkbox_collection",
+            "columned_fields",
+            "component_header",
+            "currency",
+            "date_input",
+            "date_select",
+            "declaration",
+            "email_field",
+            "financial_assets_declaration",
+            "hidden_field",
+            "modal",
+            "number_field",
+            "pack_v2",
+            "paragraph",
+            "page_title",
+            "percentage_field",
+            "phone_field",
+            "radio_button_collection",
+            "recurring_section",
+            "section",
+            "section_border",
+            "section_divider",
+            "section_title",
+            "select",
+            "ssn_field",
+            "text_area",
+            "text_field",
+            "voa_generator_v2",
+            "zip_field"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "field": {
+      "additionalProperties": false,
+      "properties": {
+        "css_classes": {
+          "type": "string"
+        },
+        "error_message": {
+          "type": "string"
+        },
+        "field": {
+          "type": "string"
+        },
+        "input_size": {
+          "type": "integer"
+        },
+        "label": {
+          "type": "string"
+        },
+        "only_mark_as_required": {
+          "type": "boolean"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "validation": {
+          "$ref": "#/$components_common_props/validation"
+        }
+      },
+      "type": "object"
+    },
+    "form": {
+      "additionalProperties": false,
+      "properties": {
+        "form": {
+          "additionalProperties": false,
+          "properties": {
+            "components": {
+              "items": {
+                "$ref": "#/$definitions/component"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "sub_steps": {
+      "items": {
+        "$ref": "#/$definitions/form"
+      },
+      "type": "array"
+    }
+  },
+  "$components": {
+    "address_one_field": {
+      "additionalProperties": false,
+      "properties": {
+        "aria_labelledby": {
+          "type": "string"
+        },
+        "error_message": {
+          "type": "string"
+        },
+        "field": {
+          "type": "string"
+        },
+        "hint": {
+          "type": "string"
+        },
+        "input_size": {
+          "type": "integer"
+        },
+        "label": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "selector": {
+          "type": "string"
+        },
+        "type": {
+          "const": "address_one_field",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "analytics": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "analytics",
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "value"
+      ],
+      "type": "object"
+    },
+    "applicant_select_shared": {
+      "additionalProperties": false,
+      "properties": {
+        "field": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "legend": {
+          "type": "string"
+        },
+        "legend_sr_only": {
+          "type": "boolean"
+        },
+        "single_coapplicant_label": {
+          "type": "string"
+        },
+        "type": {
+          "const": "applicant_select_shared",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "body_paragraph": {
+      "additionalProperties": false,
+      "properties": {
+        "conditions": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "content": {
+          "type": "string"
+        },
+        "hint": {
+          "type": "string"
+        },
+        "selector": {
+          "type": "string"
+        },
+        "selectors": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "type": {
+          "const": "body_paragraph",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "button_group": {
+      "additionalProperties": false,
+      "properties": {
+        "checkboxes_toggles": {
+          "$ref": "#/$components_common_props/checkbox_toggles"
+        },
+        "choices": {
+          "oneOf": [
+            {
+              "additionalProperties": false,
+              "patternProperties": {
+                "^.*$": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "additionalProperties": false,
+              "patternProperties": {
+                "^.*$": {
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "additionalProperties": false,
+              "patternProperties": {
+                "^.*$": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "conditions": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "css_classes": {
+          "type": "string"
+        },
+        "error_message": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "exclusive": {
+          "type": "boolean"
+        },
+        "field": {
+          "type": "string"
+        },
+        "hint": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "legend": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "required_conditions": {
+          "$ref": "#/$components_common_props/required_conditions"
+        },
+        "selector": {
+          "type": "string"
+        },
+        "selectors": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          ]
+        },
+        "type": {
+          "const": "button_group",
+          "type": "string"
+        },
+        "visibility_toggles": {
+          "$ref": "#/$components_common_props/visibility_toggles"
+        }
+      },
+      "type": "object"
+    },
+    "checkbox": {
+      "additionalProperties": false,
+      "properties": {
+        "aria_labelledby": {
+          "type": "string"
+        },
+        "auto_fields": {
+          "$ref": "#/$components_common_props/auto_fields"
+        },
+        "checkboxes_toggles": {
+          "$ref": "#/$components_common_props/checkbox_toggles"
+        },
+        "checked_value": {
+          "type": "string"
+        },
+        "components": {
+          "items": {
+            "$ref": "#/$definitions/component"
+          },
+          "type": "array"
+        },
+        "conditions": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "css_classes": {
+          "type": "string"
+        },
+        "field": {
+          "type": "string"
+        },
+        "hint": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "pdf_label": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "reverse": {
+          "type": "boolean"
+        },
+        "selector": {
+          "type": "string"
+        },
+        "type": {
+          "const": "checkbox",
+          "type": "string"
+        },
+        "unchecked_value": {
+          "type": "string"
+        },
+        "validation": {
+          "$ref": "#/$components_common_props/validation"
+        },
+        "visibility_toggles": {
+          "$ref": "#/$components_common_props/visibility_toggles"
+        }
+      },
+      "type": "object"
+    },
+    "checkbox_collection": {
+      "additionalProperties": false,
+      "properties": {
+        "css_classes": {
+          "type": "string"
+        },
+        "error_message": {
+          "type": "string"
+        },
+        "field": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "legend": {
+          "type": "string"
+        },
+        "options": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "patternProperties": {
+                "^.*$": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "selector": {
+          "type": "string"
+        },
+        "type": {
+          "const": "checkbox_collection",
+          "type": "string"
+        },
+        "visibility_toggles": {
+          "$ref": "#/$components_common_props/visibility_toggles"
+        }
+      },
+      "type": "object"
+    },
+    "columned_fields": {
+      "additionalProperties": false,
+      "properties": {
+        "fields": {
+          "items": {
+            "$ref": "#/$definitions/field"
+          },
+          "type": "array"
+        },
+        "selector": {
+          "enum": [
+            "js-alternate_name_fields",
+            "js-coborrower_alternate_name_fields",
+            "js-secondary_borrower_spouse_alternate_name_fields",
+            "js-additional_coborrower_alternate_name_fields",
+            "js-additional_coborrower_spouse_alternate_name_fields"
+          ],
+          "type": "string"
+        },
+        "type": {
+          "const": "columned_fields",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "component_header": {
+      "additionalProperties": false,
+      "properties": {
+        "aria_hidden": {
+          "type": "string"
+        },
+        "conditions": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "error_message": {
+          "type": "string"
+        },
+        "field": {
+          "type": "string"
+        },
+        "heading_level": {
+          "enum": [
+            "h2"
+          ],
+          "type": "string"
+        },
+        "hint": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "selector": {
+          "type": "string"
+        },
+        "selectors": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          ]
+        },
+        "subtext": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "type": {
+          "const": "component_header",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "currency": {
+      "additionalProperties": false,
+      "properties": {
+        "aria_label": {
+          "type": "string"
+        },
+        "css_classes": {
+          "type": "string"
+        },
+        "disabled": {
+          "type": "boolean"
+        },
+        "error_message": {
+          "type": "string"
+        },
+        "field": {
+          "type": "string"
+        },
+        "hint": {
+          "type": "string"
+        },
+        "input_size": {
+          "type": "integer"
+        },
+        "label": {
+          "type": "string"
+        },
+        "locked": {
+          "type": "boolean"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "required_conditions": {
+          "$ref": "#/$components_common_props/required_conditions"
+        },
+        "selector": {
+          "type": "string"
+        },
+        "type": {
+          "const": "currency",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "date_input": {
+      "additionalProperties": false,
+      "properties": {
+        "css_classes": {
+          "type": "string"
+        },
+        "date_input_validation_type": {
+          "type": "string"
+        },
+        "day_css": {
+          "type": "string"
+        },
+        "error_message": {
+          "type": "string"
+        },
+        "field": {
+          "type": "string"
+        },
+        "future_only": {
+          "type": "boolean"
+        },
+        "hint": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "max_year_limit": {
+          "type": "integer"
+        },
+        "min_year_limit": {
+          "type": "integer"
+        },
+        "month_css": {
+          "type": "string"
+        },
+        "recurse": {
+          "properties": {
+            "date_difference": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "selector": {
+          "type": "string"
+        },
+        "type": {
+          "const": "date_input",
+          "type": "string"
+        },
+        "validation": {
+          "$ref": "#/$components_common_props/validation"
+        },
+        "visibility_toggles": {
+          "$ref": "#/$components_common_props/visibility_toggles"
+        },
+        "year_css": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "date_select": {
+      "additionalProperties": false,
+      "properties": {
+        "exclude_fields": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "field": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "recurse": {
+          "properties": {
+            "date_difference": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        "selector": {
+          "type": "string"
+        },
+        "type": {
+          "const": "date_select",
+          "type": "string"
+        },
+        "year_css": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "declaration": {
+      "additionalProperties": false,
+      "properties": {
+        "choices": {
+          "patternProperties": {
+            "^.*$": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "condition_interpolation": {
+          "type": "string"
+        },
+        "css_classes": {
+          "type": "string"
+        },
+        "error_message": {
+          "type": "string"
+        },
+        "field": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "required": {
+          "type": "true"
+        },
+        "selector": {
+          "type": "string"
+        },
+        "type": {
+          "const": "declaration",
+          "type": "string"
+        },
+        "visibility_toggles": {
+          "$ref": "#/$components_common_props/visibility_toggles"
+        }
+      },
+      "type": "object"
+    },
+    "email_field": {
+      "additionalProperties": false,
+      "properties": {
+        "css_classes": {
+          "type": "string"
+        },
+        "error_message": {
+          "type": "string"
+        },
+        "field": {
+          "type": "string"
+        },
+        "input_size": {
+          "type": "integer"
+        },
+        "label": {
+          "type": "string"
+        },
+        "only_mark_as_required": {
+          "type": "boolean"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "type": {
+          "const": "email_field",
+          "type": "string"
+        },
+        "validation": {
+          "$ref": "#/$components_common_props/validation"
+        }
+      },
+      "type": "object"
+    },
+    "financial_assets_declaration": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "financial_assets_declaration",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "hidden_field": {
+      "additionalProperties": false,
+      "properties": {
+        "conditions": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "css_classes": {
+          "type": "string"
+        },
+        "disabled": {
+          "type": "boolean"
+        },
+        "field": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "selector": {
+          "type": "string"
+        },
+        "type": {
+          "const": "hidden_field",
+          "type": "string"
+        },
+        "value": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            }
+          ]
+        },
+        "visibility_toggles": {
+          "$ref": "#/$components_common_props/visibility_toggles"
+        }
+      },
+      "type": "object"
+    },
+    "modal": {
+      "additionalProperties": false,
+      "properties": {
+        "partial": {
+          "type": "string"
+        },
+        "type": {
+          "const": "modal",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "number_field": {
+      "additionalProperties": false,
+      "properties": {
+        "aria_label": {
+          "type": "string"
+        },
+        "css_classes": {
+          "type": "string"
+        },
+        "error_message": {
+          "type": "string"
+        },
+        "field": {
+          "type": "string"
+        },
+        "input_size": {
+          "type": "integer"
+        },
+        "label": {
+          "type": "string"
+        },
+        "max": {
+          "type": "integer"
+        },
+        "min": {
+          "type": "integer"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "required_conditions": {
+          "$ref": "#/$components_common_props/required_conditions"
+        },
+        "selector": {
+          "type": "string"
+        },
+        "type": {
+          "const": "number_field",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "pack_v2": {
+      "additionalProperties": false,
+      "properties": {
+        "account_condition": {
+          "type": "string"
+        },
+        "allow_empty": {
+          "type": "boolean"
+        },
+        "full_screen": {
+          "type": "boolean"
+        },
+        "pack_name": {
+          "type": "string"
+        },
+        "subtext": {
+          "type": "string"
+        },
+        "type": {
+          "const": "pack_v2",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "page_title": {
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "type": {
+          "const": "page_title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "text"
+      ],
+      "type": "object"
+    },
+    "paragraph": {
+      "additionalProperties": false,
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "type": {
+          "const": "paragraph",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "percentage_field": {
+      "additionalProperties": false,
+      "properties": {
+        "decimal_places": {
+          "type": "integer"
+        },
+        "field": {
+          "type": "string"
+        },
+        "hint": {
+          "type": "string"
+        },
+        "input_size": {
+          "type": "integer"
+        },
+        "label": {
+          "type": "string"
+        },
+        "selector": {
+          "type": "string"
+        },
+        "type": {
+          "const": "percentage_field",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "phone_field": {
+      "additionalProperties": false,
+      "properties": {
+        "css_classes": {
+          "type": "string"
+        },
+        "error_message": {
+          "type": "string"
+        },
+        "field": {
+          "type": "string"
+        },
+        "hint": {
+          "type": "string"
+        },
+        "input_type": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "type": {
+          "const": "phone_field",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "radio_button_collection": {
+      "additionalProperties": false,
+      "properties": {
+        "checkboxes_toggles": {
+          "$ref": "#/$components_common_props/checkbox_toggles"
+        },
+        "conditions": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "css_classes": {
+          "type": "string"
+        },
+        "error_message": {
+          "type": "string"
+        },
+        "exclusive": {
+          "type": "boolean"
+        },
+        "field": {
+          "type": "string"
+        },
+        "hint": {
+          "type": "string"
+        },
+        "hints": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "value": {
+                "oneOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "label": {
+          "type": "string"
+        },
+        "legend": {
+          "type": "string"
+        },
+        "legend_sr_only": {
+          "type": "string"
+        },
+        "options": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "patternProperties": {
+                "^.*$": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "pdf_label": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "required_conditions": {
+          "$ref": "#/$components_common_props/required_conditions"
+        },
+        "selector": {
+          "type": "string"
+        },
+        "type": {
+          "const": "radio_button_collection",
+          "type": "string"
+        },
+        "visibility_toggles": {
+          "$ref": "#/$components_common_props/visibility_toggles"
+        }
+      },
+      "type": "object"
+    },
+    "recurring_section": {
+      "additionalProperties": false,
+      "properties": {
+        "add_btn_label": {
+          "type": "string"
+        },
+        "button_first": {
+          "type": "boolean"
+        },
+        "components": {
+          "items": {
+            "$ref": "#/$definitions/component"
+          },
+          "type": "array"
+        },
+        "conditions": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "display_trash": {
+          "type": "boolean"
+        },
+        "hide_first_seperator": {
+          "type": "boolean"
+        },
+        "limit_reached_text": {
+          "type": "string"
+        },
+        "max_limit": {
+          "oneOf": [
+            {
+              "enum": [
+                ":max_additional_applicants"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            }
+          ]
+        },
+        "options": {
+          "properties": {
+            "fieldset_legend": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "recurring_section_title": {
+          "properties": {
+            "text": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "resource": {
+          "type": "string"
+        },
+        "section_header": {
+          "type": "string"
+        },
+        "section_index": {
+          "type": "integer"
+        },
+        "type": {
+          "const": "recurring_section",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "section": {
+      "additionalProperties": false,
+      "properties": {
+        "aria_labelledby": {
+          "type": "string"
+        },
+        "components": {
+          "items": {
+            "$ref": "#/$definitions/component"
+          },
+          "type": "array"
+        },
+        "conditions": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "css_classes": {
+          "type": "string"
+        },
+        "error_message": {
+          "type": "string"
+        },
+        "full_screen": {
+          "type": "boolean"
+        },
+        "heading_level": {
+          "enum": [
+            "h2"
+          ],
+          "type": "string"
+        },
+        "hint": {
+          "type": "string"
+        },
+        "internal_components": {
+          "type": "string"
+        },
+        "legend": {
+          "type": "string"
+        },
+        "legend_sr_only": {
+          "enum": [
+            "true"
+          ],
+          "type": "string"
+        },
+        "options": {
+          "properties": {
+            "selector": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "renderer": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "resource": {
+          "type": "string"
+        },
+        "selector": {
+          "type": "string"
+        },
+        "subtext": {
+          "type": "string"
+        },
+        "type": {
+          "const": "section",
+          "type": "string"
+        },
+        "unordered_list": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    },
+    "section_border": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "section_border",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "section_divider": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "section_divider",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "section_title": {
+      "additionalProperties": false,
+      "properties": {
+        "conditions": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "css_classes": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "selector": {
+          "type": "string"
+        },
+        "subtext": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "type": {
+          "const": "section_title",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "select": {
+      "additionalProperties": false,
+      "properties": {
+        "aria_labelledby": {
+          "type": "string"
+        },
+        "css_classes": {
+          "type": "string"
+        },
+        "disabled": {
+          "enum": [
+            "state_not_present?"
+          ],
+          "type": "string"
+        },
+        "error_message": {
+          "type": "string"
+        },
+        "exclusive": {
+          "type": "boolean"
+        },
+        "field": {
+          "type": "string"
+        },
+        "hint": {
+          "type": "string"
+        },
+        "include_blank": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        },
+        "input_classes": {
+          "type": "string"
+        },
+        "input_size": {
+          "type": "integer"
+        },
+        "label": {
+          "type": "string"
+        },
+        "options": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "patternProperties": {
+                "^.*$": {
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "patternProperties": {
+                "^.*$": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "patternProperties": {
+                "^.*$": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "required_conditions": {
+          "$ref": "#/$components_common_props/required_conditions"
+        },
+        "selector": {
+          "type": "string"
+        },
+        "type": {
+          "const": "select",
+          "type": "string"
+        },
+        "visibility_toggles": {
+          "$ref": "#/$components_common_props/visibility_toggles"
+        }
+      },
+      "type": "object"
+    },
+    "ssn_field": {
+      "additionalProperties": false,
+      "properties": {
+        "css_classes": {
+          "type": "string"
+        },
+        "field": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "type": {
+          "const": "ssn_field",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "text_area": {
+      "additionalProperties": false,
+      "properties": {
+        "aria_labelledby": {
+          "type": "string"
+        },
+        "field": {
+          "type": "string"
+        },
+        "type": {
+          "const": "text_area",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "text_field": {
+      "additionalProperties": false,
+      "properties": {
+        "aria_labelledby": {
+          "type": "string"
+        },
+        "conditions": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "css_classes": {
+          "type": "string"
+        },
+        "error_message": {
+          "type": "string"
+        },
+        "field": {
+          "type": "string"
+        },
+        "indent": {
+          "type": "string"
+        },
+        "input_size": {
+          "type": "integer"
+        },
+        "label": {
+          "type": "string"
+        },
+        "max_length": {
+          "type": "integer"
+        },
+        "only_mark_as_required": {
+          "type": "boolean"
+        },
+        "regex_restriction": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "required_conditions": {
+          "$ref": "#/$components_common_props/required_conditions"
+        },
+        "selector": {
+          "type": "string"
+        },
+        "supporting_text": {
+          "type": "string"
+        },
+        "type": {
+          "const": "text_field",
+          "type": "string"
+        },
+        "wrapper_grid": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "voa_generator_v2": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "voa_generator_v2",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "zip_field": {
+      "additionalProperties": false,
+      "properties": {
+        "aria_labelledby": {
+          "type": "string"
+        },
+        "error_message": {
+          "type": "string"
+        },
+        "field": {
+          "type": "string"
+        },
+        "input_size": {
+          "type": "integer"
+        },
+        "label": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "selector": {
+          "type": "string"
+        },
+        "type": {
+          "const": "zip_field",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "$components_common_props": {
+    "auto_fields": {
+      "additionalProperties": false,
+      "properties": {
+        "map": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "update": {
+                "items": {
+                  "patternProperties": {
+                    "^.*$": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "selectors": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "checkbox_toggles": {
+      "additionalProperties": false,
+      "properties": {
+        "conditions": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "map": {
+          "items": {
+            "properties": {
+              "show": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "value": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "properties": {
+                      "time": {
+                        "type": "integer"
+                      }
+                    },
+                    "type": "object"
+                  }
+                ]
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "value": {
+          "type": "string"
+        },
+        "values": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "map": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "attribute": {
+                      "type": "string"
+                    },
+                    "selector": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "toggles": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "map": {
+                      "items": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "attribute": {
+                            "enum": [
+                              "checked",
+                              "value"
+                            ],
+                            "type": "string"
+                          },
+                          "hide": {
+                            "type": "boolean"
+                          },
+                          "selector": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "items": {
+                                  "type": "string"
+                                },
+                                "type": "array"
+                              }
+                            ]
+                          },
+                          "show": {
+                            "type": "boolean"
+                          },
+                          "value": {
+                            "oneOf": [
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ]
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "selectors": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "items": {
+                            "additionalProperties": false,
+                            "properties": {
+                              "selector": {
+                                "items": {
+                                  "type": "string"
+                                },
+                                "type": "array"
+                              },
+                              "value": {
+                                "type": "string"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "type": "array"
+                        }
+                      ]
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "value": {
+                "oneOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "required_conditions": {
+      "additionalProperties": false,
+      "properties": {
+        "fields": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "field": {
+                "type": "string"
+              },
+              "resource": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "validation": {
+      "additionalProperties": false,
+      "properties": {
+        "field_group": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "message": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "visibility_toggles": {
+      "additionalProperties": false,
+      "properties": {
+        "map": {
+          "items": {
+            "properties": {
+              "show": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "value": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "properties": {
+                      "time": {
+                        "type": "integer"
+                      }
+                    },
+                    "type": "object"
+                  }
+                ]
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "selectors": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  }
+}

@@ -1,0 +1,108 @@
+- section group
+    - Welcome
+        - paragraph
+        - paragraph
+        - paragraph
+        - paragraph
+        - paragraph
+        - paragraph
+        - paragraph
+        - paragraph
+    - Borrower
+        - Personal Information
+          - analytics
+          - page_title
+          - section
+            - columned_fields
+              - text_field (first_name)
+              - text_field (middle_initial)
+          - section
+            - text_field (last_name)
+            - select (name suffix) ("User::SUFFIX_VALUES")
+          - checkbox (uses_alternate_name)
+          - columned_fields
+            - text_field (alternate_first_name)
+            - text_field (alternate_middle_initial)
+          - section
+            - text_field (alternate_last_name)
+            - select (alternate_suffix) ("User::SUFFIX_VALUES")
+          - email_field (email)
+          - phone_field (home_phone)
+          - phone_field (cell_phone)
+          - phone_field (phone)
+          - select (preferred_phone) (options array)
+          - section
+            - section
+              - select (lead_source)
+              - text_field (lead_source_val)
+            - component_header (relationship_question)
+          - section
+            - component_header (Yes, I have TD check account)
+            - button_group (account_relationship_b)
+            - text_field (account_relationship_number_b)
+            - component_header (Yes, I am TD employee)
+            - button_group (employee_relationship_b)
+            - section_title (Addresses)
+            - section (current_address)
+              - section (Where do you currently live?)
+                - address_one_field (address1 - Street Address)
+                - text_field (address2 - Apt/Unit/Suite)
+                - text_field (city)
+                - select (state_options)
+                - zip_field (zip)
+                - select (county_fips)
+                - select (country)
+                - date_input (Starting from)
+            - section (Do you own or rent where you live?)
+              - checkbox (I have no primary housing expense)
+              - section
+                - button_group (own)
+                - currency (monthly_rent)
+            - section (primary_applicant)
+              - recurring_section (add another address)
+                - section title
+                - address_one_field (Street Address)
+        - Loan
+        - Employment & Income
+        - Credit
+        - Assets & Liabilities
+        - Declarations
+    - Review
+
+### Random Notes
+
+- Why use multiple paragraph components to render html (see: Welcome section in TD intake form)
+  - https://showdownjs.com/
+  - https://meliorence.github.io/react-native-render-html/
+- What are "conditions"? How are they used?
+- What is a "resource"? See example: "loan_application"
+
+
+- Control Types
+  - container
+    - type
+    - controls
+    - options
+  - repeater
+    - key
+    - type
+    - controls
+    - options
+    - formulaIsVisible
+    - formulaIsRequired
+    - label
+    - hint
+  - input (text, number, hidden, etc.)
+    - key
+    - type
+    - options
+    - formulaIsVisible
+    - formulaIsRequired
+    - formulaCalculatedValue
+    - label
+    - hint
+  - static (paragraph, heading, horizontal rule, analytics)
+    - key
+    - type
+    - options
+    - formulaIsVisible

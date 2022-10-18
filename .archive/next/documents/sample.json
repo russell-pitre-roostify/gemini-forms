@@ -1,0 +1,145 @@
+{
+  "name": "Roostify Default Application Capture Form",
+  "description": "Borrower uses this form to enter loan application details.",
+  "accountId": "4446a023-52c8-4d4d-bef7-bef6fcc73f77",
+  "version": {
+    "id": "8ab13e6e-2fda-4b14-8e05-deef4e91ee72",
+    "number": 1.0,
+    "status": "DRAFT"
+  },
+  "dataSources": {
+    "marital_status": {
+      "description": "A list of marital statuses",
+      "type": "array",
+      "data": [
+        {
+          "id": "1",
+          "label": "Unmarried",
+          "sort": 2
+        },
+        {
+          "id": "2",
+          "label": "Married",
+          "sort": 0
+        },
+        {
+          "id": "3",
+          "label": "Separated",
+          "sort": 1
+        }
+      ]
+    },
+    "us_states": {
+      "name": "US States",
+      "type": "remote",
+      "options": {
+        "url": "http://api.usps.com/us_states",
+        "method": "POST",
+        "body": {}
+      }
+    }
+  },
+  "sections": [
+    {
+      "title": "Personal Information",
+      "key": "personal_info_section",
+      "formulaIsVisible": null,
+      "controls": [
+        {
+          "type": "analytics",
+          "options": {
+            "value": "blah blah blah"
+          }
+        },
+        {
+          "type": "heading",
+          "key": "personal_info_heading",
+          "options": {
+            "level": 2
+          }
+        },
+        {
+          "type": "container",
+          "options": {
+            "flexDirection": "column"
+          },
+          "controls": [
+            {
+              "type": "text",
+              "formulaIsVisible": null,
+              "formulaIsRequired": null,
+              "formulaCalculatedValue": null,
+              "key": "first_name",
+              "label": "first name",
+              "hint": "Your first name as it appears on your government issued document such as your driver's license",
+              "options": {
+                "maxLength": 100
+              }
+            },
+            {
+              "type": "text",
+              "formulaIsVisible": null,
+              "formulaIsRequired": null,
+              "formulaCalculatedValue": null,
+              "key": "last_name",
+              "label": "last name",
+              "hint": "Your last name as it appears on your government issued document such as your driver's license",
+              "options": {
+                "maxLength": 100
+              }
+            }
+          ]
+        },
+        {
+          "type": "repeater",
+          "key": "addresses",
+          "label": "Addresses",
+          "hint": "Enter all addresses that you have lived at in the past 3 years.",
+          "formulaIsVisible": null,
+          "formulaIsRequired": null,
+          "options": {},
+          "controls": [
+            {
+              "type": "text",
+              "key": "street_address_1",
+              "label": "Street Address 1",
+              "formulaIsVisible": null,
+              "formulaIsRequired": null,
+              "formulaCalculatedValue": null,
+              "options": {
+                "maxLength": 100
+              }
+            },
+            {
+              "type": "text",
+              "key": "street_address_2",
+              "label": "Street Address 2",
+              "formulaIsVisible": null,
+              "formulaIsRequired": null,
+              "formulaCalculatedValue": null,
+              "options": {
+                "maxLength": 100
+              }
+            },
+            {
+              "type": "container",
+              "options": {
+                "flexDirection": "column"
+              },
+              "controls": [
+                {
+                  "type": "text",
+                  "key": "city",
+                  "label": "City",
+                  "options": {
+                    "maxLength": 100
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
