@@ -1,10 +1,13 @@
 import FormulaRunner from './formula-runner/FormulaRunner.js';
 import _ from 'lodash';
-import formDefinition from './json/sample.json';
-import walk from "./graph/traverseFormDefinition.js";
-import sampleForm from "./graph/sample-form.json";
+import sampleFormDefinition from './json/sample-form.json';
+import makeDataTree from "./tree/makeDataTree.js";
+import updateVisibility from "./tree/updateVisibility.js";
+import updateCalculatedValues from "./tree/updateCalculatedValues.js";
 
-// this is sample form data that models the sample.json form definition.
+//
+// Sample form data
+//
 const formData = {
     "personal_information": {
         "analytics_personal_information": "some-analytics-key-data",
@@ -75,7 +78,7 @@ describe('formula runner', () => {
 
         const runner = new FormulaRunner({
             templateParser: (coordinate) => {
-                const path = coordinate.replaceAll(":",".")
+                const path = coordinate.replaceAll(":", ".")
                 return _.get(formData, path)
             }
         });
@@ -90,7 +93,7 @@ describe('formula runner', () => {
 
         const runner = new FormulaRunner({
             templateParser: (coordinate) => {
-                const path = coordinate.replaceAll(":",".")
+                const path = coordinate.replaceAll(":", ".")
                 return _.get(formData, path)
             }
         });
@@ -101,15 +104,78 @@ describe('formula runner', () => {
     });
 
     it('Walk data', () => {
-        const form = walk(formDefinition.sections);
+
+        const tree = makeDataTree(sampleFormDefinition);
+
+        tree.childAt("personal_information")
+            .childAt("container_borrower_name")
+            .childAt("first_name")
+            .setValue({value: 'Trey'})
+
+        const runner = new FormulaRunner({
+            templateParser: (coordinate = '') => {
+                const paths = coordinate.split(":")
+                let node = tree;
+                paths.forEach(path => {
+                    node = node.childAt(path)
+                })
+                return node.value;
+            }
+        });
+
+        const result = runner.run("val(`personal_information:container_borrower_name:first_name`)");
+
+        expect(result.value).toBe("Trey")
+    });
+
+    it('Update visibility', () => {
+
+        const tree = makeDataTree(sampleFormDefinition);
+
+        tree.childAt("personal_information")
+            .childAt("container_borrower_name")
+            .childAt("first_name")
+            .setValue({value: 'Trey'})
+
+        tree.childAt("personal_information")
+            .childAt("container_borrower_name")
+            .childAt("last_name")
+            .setValue({value: 'Anastasio'})
+
+        updateVisibility(tree);
 
 
-        navigate(form)
-            .to('container_borrower_name')
-            .to('first_name')
-            .set('Russell')
+        const alternateFirstName = tree.childAt("personal_information")
+            .childAt("container_borrower_name")
+            .childAt("alternate_first_name");
 
-        console.log(form);
+        const alternateLastName = tree.childAt("personal_information")
+            .childAt("container_borrower_name")
+            .childAt("alternate_last_name")
+
+        expect(alternateFirstName.isVisible).toBe(false)
+        expect(alternateLastName.isVisible).toBe(false)
+    });
+
+    it('should update hidden address count', () => {
+
+        const tree = makeDataTree(sampleFormDefinition);
+
+        tree.childAt("personal_information")
+            .childAt("addresses")
+            .pushValue({
+                value: {
+                    street_address_1: "123 Petty Lane",
+                    street_address_2: "Suite 201",
+                    container_city_state_zip: {
+                        "city": "Hollywood",
+                        "state": "CA",
+                        "zip": "02069"
+                    }
+                }
+            })
+
+        updateCalculatedValues(tree);
     });
 
 })

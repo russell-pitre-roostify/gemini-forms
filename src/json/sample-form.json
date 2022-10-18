@@ -57,6 +57,7 @@
   },
   "sections": {
     "personal_information": {
+      "type": "section",
       "title": "Personal Information",
       "group": "Borrower",
       "controls": {

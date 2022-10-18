@@ -126,8 +126,12 @@
     },
     "section": {
       "type": "object",
-      "required": ["title", "controls"],
+      "required": ["type", "title", "controls"],
       "properties": {
+        "type": {
+          "type": "string",
+          "const": "section"
+        },
         "title": {
           "type": "string",
           "description": "Section title"
@@ -149,7 +153,6 @@
       "type": "object",
       "patternProperties": {
         "^[a-z0-9]+(?:_[a-z0-9]+)*$": {
-          "required": ["type"],
           "$ref": "#/$defs/control"
         }
       },
@@ -167,7 +170,9 @@
             "button_group",
             "container",
             "heading",
+            "hidden",
             "repeater",
+            "select",
             "text"
           ]
         }
@@ -230,12 +235,38 @@
             "type": "object",
             "properties": {
               "type": {
+                "const": "hidden"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/control_definition/hidden"
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "type": {
                 "const": "repeater"
               }
             }
           },
           "then": {
             "$ref": "#/$defs/control_definition/repeater"
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "select"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/control_definition/select"
           }
         },
         {
@@ -334,6 +365,20 @@
           }
         }
       },
+      "hidden": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "hidden"
+          },
+          "formulaCalculatedValue": {
+            "$ref": "#/$defs/control_definition_common/formula_calculated_value"
+          }
+        }
+      },
       "repeater": {
         "type": "object",
         "additionalProperties": false,
@@ -360,6 +405,35 @@
           },
           "hint": {
             "$ref": "#/$defs/control_definition_common/hint"
+          }
+        }
+      },
+      "select": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "options", "label"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "select"
+          },
+          "label": {
+            "$ref": "#/$defs/control_definition_common/label"
+          },
+          "hint": {
+            "$ref": "#/$defs/control_definition_common/hint"
+          },
+          "formulaIsVisible": {
+            "$ref": "#/$defs/control_definition_common/formula_is_visible"
+          },
+          "formulaIsRequired": {
+            "$ref": "#/$defs/control_definition_common/formula_is_required"
+          },
+          "formulaCalculatedValue": {
+            "$ref": "#/$defs/control_definition_common/formula_calculated_value"
+          },
+          "options": {
+            "$ref": "#/$defs/control_definition_options/select"
           }
         }
       },
@@ -433,6 +507,16 @@
       "repeater": {
         "type": "object",
         "properties": {},
+        "additionalProperties": false
+      },
+      "select": {
+        "type": "object",
+        "required": ["dataSource"],
+        "properties": {
+          "dataSource": {
+            "type": "string"
+          }
+        },
         "additionalProperties": false
       },
       "text": {

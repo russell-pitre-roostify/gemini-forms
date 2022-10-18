@@ -4,10 +4,10 @@
 
 ```shell
 # compile json schema
-$ ajv compile -s schema/roostify-forms-next-schema.json
+$ ajv compile -s src/schema/schema.json
 
 # validate json file
-$ ajv -s schema/roostify-forms-next-schema.json -d "next/001-form.json"
+$ ajv -s src/schema/schema.json -d src/json/sample-form.json
 ```
 
 ## Converts yml to json
