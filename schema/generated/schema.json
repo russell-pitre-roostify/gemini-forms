@@ -1,0 +1,317 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "definitions": {
+        "AnalyticsControlOptions": {
+            "properties": {
+                "value": {
+                    "description": "?",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Control": {
+            "properties": {
+                "controls": {
+                    "$ref": "#/definitions/Controls",
+                    "description": "Children controls."
+                },
+                "type": {
+                    "$ref": "#/definitions/ControlType",
+                    "description": "Type of control."
+                }
+            },
+            "type": "object"
+        },
+        "ControlType": {
+            "enum": [
+                "analytics",
+                "button_group",
+                "container",
+                "heading",
+                "hidden",
+                "repeater",
+                "section",
+                "select",
+                "text"
+            ],
+            "type": "string"
+        },
+        "Controls": {
+            "additionalProperties": {
+                "anyOf": [
+                    {
+                        "properties": {
+                            "options": {
+                                "$ref": "#/definitions/AnalyticsControlOptions",
+                                "description": "Control options."
+                            },
+                            "type": {
+                                "description": "Control type.",
+                                "enum": [
+                                    "analytics"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "$ref": "#/definitions/Control"
+                    },
+                    {
+                        "properties": {
+                            "options": {
+                                "$ref": "#/definitions/TextInputControlOptions",
+                                "description": "Control options."
+                            },
+                            "type": {
+                                "description": "Control type.",
+                                "enum": [
+                                    "text"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "formulaCalculatedValue": {
+                                "description": "Formula for calculating a value.",
+                                "type": "string"
+                            },
+                            "options": {
+                                "$ref": "#/definitions/HeadingControlOptions",
+                                "description": "Control options."
+                            },
+                            "type": {
+                                "description": "Control type.",
+                                "enum": [
+                                    "heading"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "formulaIsVisible": {
+                                "description": "Formula to evaluate that determines the visibility of the form section. When the formula\nevaluates to \"false\" the form section will not be presented to the user.",
+                                "type": "string"
+                            },
+                            "group": {
+                                "description": "Groups multiple form sections under a single top-level navigation item.",
+                                "type": "string"
+                            },
+                            "title": {
+                                "description": "Title of section.",
+                                "type": "string"
+                            },
+                            "type": {
+                                "description": "Type of section.",
+                                "enum": [
+                                    "section"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "type": "object"
+        },
+        "DataSources": {
+            "additionalProperties": {
+                "anyOf": [
+                    {
+                        "$ref": "#/definitions/StaticDataSource"
+                    },
+                    {
+                        "$ref": "#/definitions/RemoteDataSource"
+                    }
+                ]
+            },
+            "type": "object"
+        },
+        "FormPublishingStatus": {
+            "description": "Current publishing status of form",
+            "enum": [
+                "ACTIVE",
+                "DRAFT"
+            ],
+            "type": "string"
+        },
+        "HeadingControlOptions": {
+            "properties": {
+                "level": {
+                    "description": "Heading level",
+                    "enum": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6
+                    ],
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "RemoteDataSource": {
+            "properties": {
+                "description": {
+                    "description": "Description of the data source.",
+                    "type": "string"
+                },
+                "options": {
+                    "$ref": "#/definitions/RemoteDataSourceOptions",
+                    "description": "Remote options for data source."
+                },
+                "type": {
+                    "description": "Type of data source.",
+                    "enum": [
+                        "REMOTE"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "RemoteDataSourceOptions": {
+            "properties": {
+                "body": {
+                    "additionalProperties": true,
+                    "description": "POST body.",
+                    "properties": {},
+                    "type": "object"
+                },
+                "method": {
+                    "description": "HTTP Method.",
+                    "enum": [
+                        "GET",
+                        "POST"
+                    ],
+                    "type": "string"
+                },
+                "params": {
+                    "additionalProperties": true,
+                    "description": "URL parameters.",
+                    "properties": {},
+                    "type": "object"
+                },
+                "url": {
+                    "description": "Url to call to retrieve data",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "StaticDataSource": {
+            "properties": {
+                "data": {
+                    "description": "Type of data source.",
+                    "items": {},
+                    "type": "array"
+                },
+                "description": {
+                    "description": "Description of the data source.",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "Type of data source.",
+                    "enum": [
+                        "ARRAY"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "TextInputControlOptions": {
+            "properties": {
+                "maxLength": {
+                    "description": "Max number of characters user is allowed to enter.",
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "properties": {
+        "accountId": {
+            "description": "Account ID associated with the form.",
+            "type": "string"
+        },
+        "dataSources": {
+            "$ref": "#/definitions/DataSources",
+            "description": "A datasource provides data to form controls for rendering, such as a list of US States for\na select control. A datasource can include a \"data\" property consisting of a static array\nof data elements, or can be a \"remote\" data source having an \"options\" property containing\ndetails of how to make remote calls."
+        },
+        "description": {
+            "description": "Describes the purpose of the form.",
+            "type": "string"
+        },
+        "name": {
+            "description": "Name of the form.",
+            "type": "string"
+        },
+        "sections": {
+            "additionalProperties": {
+                "anyOf": [
+                    {
+                        "$ref": "#/definitions/Control"
+                    },
+                    {
+                        "properties": {
+                            "formulaIsVisible": {
+                                "description": "Formula to evaluate that determines the visibility of the form section. When the formula\nevaluates to \"false\" the form section will not be presented to the user.",
+                                "type": "string"
+                            },
+                            "group": {
+                                "description": "Groups multiple form sections under a single top-level navigation item.",
+                                "type": "string"
+                            },
+                            "title": {
+                                "description": "Title of section.",
+                                "type": "string"
+                            },
+                            "type": {
+                                "description": "Type of section.",
+                                "enum": [
+                                    "section"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "description": "Form sections",
+            "type": "object"
+        },
+        "version": {
+            "description": "Form version information.",
+            "properties": {
+                "id": {
+                    "description": "Form version identifier.",
+                    "type": "string"
+                },
+                "number": {
+                    "description": "Version number of the form.",
+                    "type": "number"
+                },
+                "status": {
+                    "$ref": "#/definitions/FormPublishingStatus",
+                    "description": "Publishing status the form."
+                }
+            },
+            "type": "object"
+        }
+    },
+    "type": "object"
+}
+

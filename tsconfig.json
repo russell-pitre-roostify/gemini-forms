@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "paths": {
+      "@roostify/gemini-forms-schema/*": ["schema/ts/*"],
+      "@roostify/gemini-forms-schema": ["schema/ts/"]
+    },
+    "typeRoots": ["./src/main/js/tree", "./src/main/ts", "./schema/ts"],
+    "types": ["@types/jest"],
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true
+  }
+}

@@ -1,0 +1,202 @@
+{
+  "name": "Roostify Default Application Capture Form",
+  "description": "Borrower uses this form to enter loan application details.",
+  "accountId": "4446a023-52c8-4d4d-bef7-bef6fcc73f77",
+  "version": {
+    "id": "8ab13e6e-2fda-4b14-8e05-deef4e91ee72",
+    "number": 1.0,
+    "status": "DRAFT"
+  },
+  "dataSources": {
+    "marital_status": {
+      "description": "A list of marital statuses",
+      "type": "array",
+      "data": [
+        {
+          "id": "1",
+          "label": "Unmarried",
+          "sort": 2
+        },
+        {
+          "id": "2",
+          "label": "Married",
+          "sort": 0
+        },
+        {
+          "id": "3",
+          "label": "Separated",
+          "sort": 1
+        }
+      ]
+    },
+    "yes_no": {
+      "description": "Two options, yes and no",
+      "type": "array",
+      "data": [
+        {
+          "id": "1",
+          "label": "Yes",
+          "sort": 0
+        },
+        {
+          "id": "2",
+          "label": "No",
+          "sort": 1
+        }
+      ]
+    },
+    "us_states": {
+      "name": "US States",
+      "type": "remote",
+      "options": {
+        "url": "http://api.usps.com/us_states",
+        "method": "POST",
+        "body": {}
+      }
+    }
+  },
+  "sections": {
+    "personal_information": {
+      "type": "section",
+      "title": "Personal Information",
+      "group": "Borrower",
+      "controls": {
+        "analytics_personal_information": {
+          "type": "analytics",
+          "options": {
+            "value": "blah blah blah"
+          }
+        },
+        "heading_personal_info": {
+          "type": "heading",
+          "options": {
+            "level": 2
+          }
+        },
+        "container_borrower_name": {
+          "type": "container",
+          "options": {
+            "flexDirection": "column"
+          },
+          "controls": {
+            "first_name": {
+              "type": "text",
+              "formulaIsVisible": null,
+              "formulaIsRequired": null,
+              "formulaCalculatedValue": null,
+              "label": "First Name",
+              "hint": "Your first name as it appears on your government issued document such as your driver's license",
+              "options": {
+                "maxLength": 100
+              }
+            },
+            "last_name": {
+              "type": "text",
+              "formulaIsVisible": null,
+              "formulaIsRequired": null,
+              "formulaCalculatedValue": null,
+              "label": "Last Name",
+              "hint": "Your last name as it appears on your government issued document such as your driver's license",
+              "options": {
+                "maxLength": 100
+              }
+            },
+            "has_alternate_name": {
+              "type": "button_group",
+              "label": "Do you go by another name",
+              "formulaIsVisible": null,
+              "formulaIsRequired": null,
+              "formulaCalculatedValue": null,
+              "options": {
+                "dataSource": "yes_no"
+              }
+            },
+            "alternate_first_name": {
+              "type": "text",
+              "formulaIsVisible": "val(`personal_information:container_borrower_name:has_alternate_name`) === true",
+              "formulaIsRequired": "val(`personal_information:container_borrower_name:has_alternate_name`) === true",
+              "formulaCalculatedValue": null,
+              "label": "First Name",
+              "options": {
+                "maxLength": 100
+              }
+            },
+            "alternate_last_name": {
+              "type": "text",
+              "formulaIsVisible": "val(`personal_information:container_borrower_name:has_alternate_name`) === true",
+              "formulaIsRequired": "val(`personal_information:container_borrower_name:has_alternate_name`) === true",
+              "formulaCalculatedValue": null,
+              "label": "Last Name",
+              "options": {
+                "maxLength": 100
+              }
+            }
+          }
+        },
+        "addresses": {
+          "type": "repeater",
+          "label": "Addresses",
+          "hint": "Enter all addresses that you have lived at in the past 3 years.",
+          "formulaIsVisible": null,
+          "formulaIsRequired": null,
+          "options": {},
+          "controls": {
+            "street_address_1": {
+              "type": "text",
+              "label": "Street Address 1",
+              "formulaIsVisible": null,
+              "formulaIsRequired": null,
+              "formulaCalculatedValue": null,
+              "options": {
+                "maxLength": 100
+              }
+            },
+            "street_address_2": {
+              "type": "text",
+              "label": "Street Address 2",
+              "formulaIsVisible": null,
+              "formulaIsRequired": null,
+              "formulaCalculatedValue": null,
+              "options": {
+                "maxLength": 100
+              }
+            },
+            "container_city_state_zip": {
+              "type": "container",
+              "options": {
+                "flexDirection": "column"
+              },
+              "controls": {
+                "city": {
+                  "type": "text",
+                  "label": "City",
+                  "options": {
+                    "maxLength": 100
+                  }
+                },
+                "state": {
+                  "type": "select",
+                  "label": "State",
+                  "options": {
+                    "dataSource": "us_states"
+                  }
+                },
+                "zip": {
+                  "type": "text",
+                  "label": "Zip",
+                  "options": {
+                    "maxLength": 9
+                  }
+                }
+              }
+            }
+          }
+        },
+        "hidden_address_count": {
+          "type": "hidden",
+          "formulaCalculatedValue": "length(`personal_information:addresses`)"
+        }
+      }
+    }
+  }
+}
