@@ -1,4 +1,10 @@
-import {Control, ControlType} from "../Control";
+import {
+    ControlType,
+    IControlType,
+    IHasFormulaCalculatedValue,
+    IHasFormulaIsRequired,
+    IHasFormulaIsVisible
+} from "../Control";
 
 export type TextInputControl = {
     /**
@@ -10,7 +16,7 @@ export type TextInputControl = {
      */
     options: TextInputControlOptions
 
-} | Control
+} & IControlType & IHasFormulaCalculatedValue & IHasFormulaIsVisible & IHasFormulaIsRequired
 
 export type TextInputControlOptions = {
     /**

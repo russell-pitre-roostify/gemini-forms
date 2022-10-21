@@ -1,4 +1,9 @@
-import {Control, ControlType} from "../Control";
+import {
+    ControlType,
+    IControlType,
+    IHasFormulaCalculatedValue,
+    IHasFormulaIsVisible
+} from "../Control";
 
 export type HeadingControl = {
     /**
@@ -10,7 +15,7 @@ export type HeadingControl = {
      */
     options: HeadingControlOptions
 
-} | Control
+} & IControlType & IHasFormulaCalculatedValue & IHasFormulaIsVisible
 
 export type HeadingControlOptions = {
     /**

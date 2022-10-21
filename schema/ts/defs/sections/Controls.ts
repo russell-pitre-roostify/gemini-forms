@@ -1,8 +1,8 @@
-import {AnyControl} from "./Control";
+import {Control} from "./Control";
 
 export interface Controls {
     /**
      * Control definition.
      */
-    [key: string]: AnyControl
+    [key: string]: Control
 }

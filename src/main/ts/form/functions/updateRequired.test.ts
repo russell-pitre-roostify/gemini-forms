@@ -22,15 +22,9 @@ const formDefinition: FormDefinition = {
                         maxLength: 100
                     }
                 },
-                "last_name": {
-                    type: ControlType.Text,
-                    options: {
-                        maxLength: 100
-                    }
-                },
                 "full_name": {
                     type: ControlType.Text,
-                    formulaIsRequired: '`section:do_you_agree` === "yes"',
+                    formulaIsRequired: '`section:do_you_agree` === true',
                     options: {
                         maxLength: 100
                     }
@@ -53,8 +47,7 @@ describe('updateVisibility', () => {
             templateParser: defaultTemplateParser(form)
         })
 
-        form.toChild("section:first_name")?.setValue("");
-        form.toChild("section:last_name")?.setValue("");
+        form.toChild("section:do_you_agree")?.setValue(false);
 
         updateCalculatedValues(form, runner);
         updateVisibility(form, runner);
@@ -64,8 +57,7 @@ describe('updateVisibility', () => {
 
         it('should update isVisible flag', () => {
 
-            form.toChild("section:first_name")?.setValue("Tom")
-            form.toChild("section:last_name")?.setValue("Petty")
+            form.toChild("section:do_you_agree")?.setValue(true)
 
             let changes: NodeStateChange[];
 

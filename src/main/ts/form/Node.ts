@@ -1,4 +1,4 @@
-import {AnyControl, Control} from "@roostify/gemini-forms-schema";
+import {Control} from "@roostify/gemini-forms-schema";
 import walk, {NodeCallbackFunction} from "./functions/walk";
 
 
@@ -8,7 +8,7 @@ import walk, {NodeCallbackFunction} from "./functions/walk";
 export default class Node {
 
     readonly key: string;
-    readonly control?: AnyControl;
+    readonly control?: Control;
 
     private parent?: Node;
     private readonly children: Map<string, Node> = new Map<string, Node>();

@@ -1,31 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "definitions": {
-        "Control": {
-            "properties": {
-                "controls": {
-                    "$ref": "#/definitions/Controls",
-                    "description": "Children controls."
-                },
-                "formulaCalculatedValue": {
-                    "description": "Formula for calculating the controls value.",
-                    "type": "string"
-                },
-                "formulaIsRequired": {
-                    "description": "Formula to evaluate that determines whether control is required. When the formula\nevaluates to \"false\" the control will not require a value to be entered.",
-                    "type": "string"
-                },
-                "formulaIsVisible": {
-                    "description": "Formula to evaluate that determines the visibility of the control. When the formula\nevaluates to \"false\" the control will not be presented to the user.",
-                    "type": "string"
-                },
-                "type": {
-                    "$ref": "#/definitions/ControlType",
-                    "description": "Type of control."
-                }
-            },
-            "type": "object"
-        },
         "ControlType": {
             "enum": [
                 "analytics",
@@ -44,101 +19,210 @@
             "additionalProperties": {
                 "anyOf": [
                     {
-                        "properties": {
-                            "options": {
-                                "description": "Control options.",
+                        "allOf": [
+                            {
                                 "properties": {
-                                    "value": {
-                                        "description": "?",
+                                    "options": {
+                                        "description": "Control options.",
+                                        "properties": {
+                                            "value": {
+                                                "description": "?",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "type": {
+                                        "description": "Control type.",
+                                        "enum": [
+                                            "analytics"
+                                        ],
                                         "type": "string"
                                     }
                                 },
                                 "type": "object"
                             },
-                            "type": {
-                                "description": "Control type.",
-                                "enum": [
-                                    "analytics"
-                                ],
-                                "type": "string"
-                            }
-                        },
-                        "type": "object"
-                    },
-                    {
-                        "$ref": "#/definitions/Control"
-                    },
-                    {
-                        "properties": {
-                            "options": {
-                                "description": "Control options.",
+                            {
+                                "$ref": "#/definitions/IControlType"
+                            },
+                            {
                                 "properties": {
-                                    "maxLength": {
-                                        "description": "Max number of characters user is allowed to enter.",
-                                        "type": "number"
+                                    "formulaCalculatedValue": {
+                                        "description": "Formula for calculating the controls value.",
+                                        "type": "string"
                                     }
                                 },
                                 "type": "object"
                             },
-                            "type": {
-                                "description": "Control type.",
-                                "enum": [
-                                    "text"
-                                ],
-                                "type": "string"
+                            {
+                                "properties": {
+                                    "formulaIsVisible": {
+                                        "description": "Formula to evaluate that determines the visibility of the control. When the formula\nevaluates to \"false\" the control will not be presented to the user.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
                             }
-                        },
-                        "type": "object"
+                        ]
                     },
                     {
-                        "properties": {
-                            "options": {
-                                "description": "Control options.",
+                        "allOf": [
+                            {
                                 "properties": {
-                                    "level": {
-                                        "description": "Heading level",
+                                    "options": {
+                                        "description": "Control options.",
+                                        "properties": {
+                                            "level": {
+                                                "description": "Heading level",
+                                                "enum": [
+                                                    1,
+                                                    2,
+                                                    3,
+                                                    4,
+                                                    5,
+                                                    6
+                                                ],
+                                                "type": "number"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "type": {
+                                        "description": "Control type.",
                                         "enum": [
-                                            1,
-                                            2,
-                                            3,
-                                            4,
-                                            5,
-                                            6
+                                            "heading"
                                         ],
-                                        "type": "number"
+                                        "type": "string"
                                     }
                                 },
                                 "type": "object"
                             },
-                            "type": {
-                                "description": "Control type.",
-                                "enum": [
-                                    "heading"
-                                ],
-                                "type": "string"
+                            {
+                                "$ref": "#/definitions/IControlType"
+                            },
+                            {
+                                "properties": {
+                                    "formulaCalculatedValue": {
+                                        "description": "Formula for calculating the controls value.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "formulaIsVisible": {
+                                        "description": "Formula to evaluate that determines the visibility of the control. When the formula\nevaluates to \"false\" the control will not be presented to the user.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
                             }
-                        },
-                        "type": "object"
+                        ]
                     },
                     {
-                        "properties": {
-                            "group": {
-                                "description": "Groups multiple form sections under a single top-level navigation item.",
-                                "type": "string"
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "options": {
+                                        "description": "Control options.",
+                                        "properties": {
+                                            "maxLength": {
+                                                "description": "Max number of characters user is allowed to enter.",
+                                                "type": "number"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "type": {
+                                        "description": "Control type.",
+                                        "enum": [
+                                            "text"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
                             },
-                            "title": {
-                                "description": "Title of section.",
-                                "type": "string"
+                            {
+                                "$ref": "#/definitions/IControlType"
                             },
-                            "type": {
-                                "description": "Control type.",
-                                "enum": [
-                                    "section"
-                                ],
-                                "type": "string"
+                            {
+                                "properties": {
+                                    "formulaCalculatedValue": {
+                                        "description": "Formula for calculating the controls value.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "formulaIsVisible": {
+                                        "description": "Formula to evaluate that determines the visibility of the control. When the formula\nevaluates to \"false\" the control will not be presented to the user.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "formulaIsRequired": {
+                                        "description": "Formula to evaluate that determines whether control is required. When the formula\nevaluates to \"false\" the control will not require a value to be entered.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
                             }
-                        },
-                        "type": "object"
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "options": {
+                                        "description": "Control options.",
+                                        "properties": {
+                                            "orientation": {
+                                                "description": "Orientation of container layout.",
+                                                "enum": [
+                                                    "HORIZONTAL",
+                                                    "VERTICAL"
+                                                ],
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "type": {
+                                        "description": "Control type.",
+                                        "enum": [
+                                            "container"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            {
+                                "$ref": "#/definitions/IControlType"
+                            },
+                            {
+                                "$ref": "#/definitions/IHasChildrenControls"
+                            },
+                            {
+                                "properties": {
+                                    "formulaIsVisible": {
+                                        "description": "Formula to evaluate that determines the visibility of the control. When the formula\nevaluates to \"false\" the control will not be presented to the user.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    {
+                        "$ref": "#/definitions/SectionControl"
                     }
                 ]
             },
@@ -164,6 +248,24 @@
                 "DRAFT"
             ],
             "type": "string"
+        },
+        "IControlType": {
+            "properties": {
+                "type": {
+                    "$ref": "#/definitions/ControlType",
+                    "description": "Type of control."
+                }
+            },
+            "type": "object"
+        },
+        "IHasChildrenControls": {
+            "properties": {
+                "controls": {
+                    "$ref": "#/definitions/Controls",
+                    "description": "Children controls."
+                }
+            },
+            "type": "object"
         },
         "RemoteDataSource": {
             "properties": {
@@ -214,6 +316,45 @@
             },
             "type": "object"
         },
+        "SectionControl": {
+            "allOf": [
+                {
+                    "properties": {
+                        "group": {
+                            "description": "Groups multiple form sections under a single top-level navigation item.",
+                            "type": "string"
+                        },
+                        "title": {
+                            "description": "Title of section.",
+                            "type": "string"
+                        },
+                        "type": {
+                            "description": "Control type.",
+                            "enum": [
+                                "section"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                {
+                    "$ref": "#/definitions/IControlType"
+                },
+                {
+                    "$ref": "#/definitions/IHasChildrenControls"
+                },
+                {
+                    "properties": {
+                        "formulaIsVisible": {
+                            "description": "Formula to evaluate that determines the visibility of the control. When the formula\nevaluates to \"false\" the control will not be presented to the user.",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                }
+            ]
+        },
         "StaticDataSource": {
             "properties": {
                 "data": {
@@ -255,31 +396,7 @@
         },
         "sections": {
             "additionalProperties": {
-                "anyOf": [
-                    {
-                        "$ref": "#/definitions/Control"
-                    },
-                    {
-                        "properties": {
-                            "group": {
-                                "description": "Groups multiple form sections under a single top-level navigation item.",
-                                "type": "string"
-                            },
-                            "title": {
-                                "description": "Title of section.",
-                                "type": "string"
-                            },
-                            "type": {
-                                "description": "Control type.",
-                                "enum": [
-                                    "section"
-                                ],
-                                "type": "string"
-                            }
-                        },
-                        "type": "object"
-                    }
-                ]
+                "$ref": "#/definitions/SectionControl"
             },
             "description": "Form sections",
             "type": "object"

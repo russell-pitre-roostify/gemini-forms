@@ -1,5 +1,6 @@
 import Node from "../Node";
 import {Control, Controls, FormDefinition, Sections} from "@roostify/gemini-forms-schema";
+import {IHasChildrenControls} from "@roostify/gemini-forms-schema/defs/sections/Control";
 
 /**
  * Generates a tree data structure matching the same shape as the form definition. Each node in the
@@ -19,7 +20,7 @@ const genTree = (controls: Sections | Controls, node = new Node({key: "root"})) 
 
     Object.keys(controls).forEach(key => {
 
-        const currentNode = controls[key] as Control;
+        const currentNode = controls[key] as IHasChildrenControls;
 
         const childNode = new Node({
                 key,
@@ -38,7 +39,7 @@ const genTree = (controls: Sections | Controls, node = new Node({key: "root"})) 
     return node;
 }
 
-const toControl = (node: Control): Control => {
+const toControl = (node: IHasChildrenControls): Control => {
     const {controls, ...rest} = node;
     return {...rest} as Control;
 }

@@ -4,7 +4,8 @@
   "description": "Roostify dynamic forms schema",
   "scripts": {
     "clean": "rm -rf ./node_modules/ ./coverage/ ./schema/generated && npm install",
-    "gen": "typescript-json-schema schema/ts/FormDefinition.ts FormDefinition --out ./schema/generated/schema.json",
+    "gen-schema": "typescript-json-schema schema/ts/FormDefinition.ts FormDefinition --out ./schema/generated/schema.json",
+    "validate-sample-form": "ajv -s ./schema/generated/schema.json -d schema/js/sample-form.json",
     "reset": "npm run clean && npm run gen",
     "test": "jest"
   },

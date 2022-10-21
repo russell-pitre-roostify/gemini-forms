@@ -1,4 +1,9 @@
-import {Control, ControlType} from "../Control";
+import {
+    ControlType,
+    IControlType,
+    IHasFormulaCalculatedValue,
+    IHasFormulaIsVisible
+} from "../Control";
 
 export type AnalyticsControl = {
     /**
@@ -10,7 +15,7 @@ export type AnalyticsControl = {
      */
     options: AnalyticsControlOptions
 
-}
+} & IControlType & IHasFormulaCalculatedValue & IHasFormulaIsVisible
 
 export type AnalyticsControlOptions = {
     /**

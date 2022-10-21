@@ -10,7 +10,7 @@
   "dataSources": {
     "marital_status": {
       "description": "A list of marital statuses",
-      "type": "array",
+      "type": "ARRAY",
       "data": [
         {
           "id": "1",
@@ -31,7 +31,7 @@
     },
     "yes_no": {
       "description": "Two options, yes and no",
-      "type": "array",
+      "type": "ARRAY",
       "data": [
         {
           "id": "1",
@@ -47,7 +47,7 @@
     },
     "us_states": {
       "name": "US States",
-      "type": "remote",
+      "type": "REMOTE",
       "options": {
         "url": "http://api.usps.com/us_states",
         "method": "POST",

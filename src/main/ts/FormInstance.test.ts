@@ -78,7 +78,7 @@ describe('FormInstance', () => {
                 type: StateChange_CalculatedValue,
                 path: "section:heading",
                 key: "heading",
-                previousValue: null,
+                previousValue: "Hello, null null",
                 value: "Hello, Tom Petty"
             })
         });

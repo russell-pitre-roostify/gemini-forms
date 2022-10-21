@@ -1,4 +1,4 @@
-import {Control, ControlType} from "../Control";
+import {ControlType, IControlType, IHasChildrenControls, IHasFormulaIsVisible} from "../Control";
 
 export type SectionControl = {
     /**
@@ -14,4 +14,4 @@ export type SectionControl = {
      */
     group: string;
 
-} | Control
+} & IControlType & IHasChildrenControls & IHasFormulaIsVisible

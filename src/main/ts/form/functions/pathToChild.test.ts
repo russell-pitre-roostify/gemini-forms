@@ -19,6 +19,9 @@ const formDefinition: FormDefinition = {
                 },
                 "container_name": {
                     type: ControlType.Container,
+                    options: {
+                        orientation: "HORIZONTAL"
+                    },
                     controls: {
                         "first_name": {
                             type: ControlType.Text,
