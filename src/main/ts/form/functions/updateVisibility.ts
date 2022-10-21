@@ -1,5 +1,5 @@
+import Node, {NodeStateChange, StateChange_IsVisible} from "../Node";
 import FormulaRunner from "../../../js/formula-runner/FormulaRunner";
-import Node, {NodeStateChange, StateChange_CalculatedValue} from "../Node";
 import pathToChild from "./pathToChild";
 
 export default (root: Node, runner: FormulaRunner) => {
@@ -10,10 +10,10 @@ export default (root: Node, runner: FormulaRunner) => {
         if (node.control) {
 
             // @ts-ignore
-            const {formulaCalculatedValue} = node.control;
+            const {formulaIsVisible} = node.control;
 
-            if (formulaCalculatedValue) {
-                const result = runner.run(formulaCalculatedValue);
+            if (formulaIsVisible) {
+                const result = runner.run(formulaIsVisible);
 
                 // @ts-ignore
                 if (result.errors) {
@@ -22,13 +22,13 @@ export default (root: Node, runner: FormulaRunner) => {
                     throw new Error(e);
                 }
 
-                const previousValue = node.getState().value;
+                const previousValue = node.getState().isVisible;
 
                 if (previousValue !== result.value) {
-                    node.setValue(result.value);
+                    node.setVisible(result.value);
 
                     changes.push({
-                        type: StateChange_CalculatedValue,
+                        type: StateChange_IsVisible,
                         path: pathToChild(node),
                         key: node.key,
                         value: result.value,
@@ -36,8 +36,10 @@ export default (root: Node, runner: FormulaRunner) => {
                     })
                 }
             }
+
+
         }
-    })
+    });
 
     return changes;
 }

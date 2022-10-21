@@ -4,6 +4,7 @@ import Node, {NodeStateChange} from "./form/Node";
 import {FormDefinition} from "@roostify/gemini-forms-schema";
 import defaultTemplateParser from "./form/functions/defaultTemplateParser";
 import updateCalculatedValues from "./form/functions/updateCalculatedValues";
+import updateVisibility from "./form/functions/updateVisibility";
 
 export type SubscriberFunction = (changes: NodeStateChange[]) => void
 
@@ -34,6 +35,12 @@ export default class FormInstance {
             functions: defaultFunctions,
             templateParser: defaultTemplateParser(this.root)
         });
+        this.initState();
+    }
+
+    private initState(): void {
+        updateCalculatedValues(this.root, this.formulaRunner);
+        updateVisibility(this.root, this.formulaRunner);
     }
 
     batchSetValues(values: BatchOperationSetValue[]) {

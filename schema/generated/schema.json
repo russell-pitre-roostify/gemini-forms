@@ -7,6 +7,18 @@
                     "$ref": "#/definitions/Controls",
                     "description": "Children controls."
                 },
+                "formulaCalculatedValue": {
+                    "description": "Formula for calculating the controls value.",
+                    "type": "string"
+                },
+                "formulaIsRequired": {
+                    "description": "Formula to evaluate that determines whether control is required. When the formula\nevaluates to \"false\" the control will not require a value to be entered.",
+                    "type": "string"
+                },
+                "formulaIsVisible": {
+                    "description": "Formula to evaluate that determines the visibility of the control. When the formula\nevaluates to \"false\" the control will not be presented to the user.",
+                    "type": "string"
+                },
                 "type": {
                     "$ref": "#/definitions/ControlType",
                     "description": "Type of control."
@@ -80,10 +92,6 @@
                     },
                     {
                         "properties": {
-                            "formulaCalculatedValue": {
-                                "description": "Formula for calculating a value.",
-                                "type": "string"
-                            },
                             "options": {
                                 "description": "Control options.",
                                 "properties": {
@@ -114,10 +122,6 @@
                     },
                     {
                         "properties": {
-                            "formulaIsVisible": {
-                                "description": "Formula to evaluate that determines the visibility of the form section. When the formula\nevaluates to \"false\" the form section will not be presented to the user.",
-                                "type": "string"
-                            },
                             "group": {
                                 "description": "Groups multiple form sections under a single top-level navigation item.",
                                 "type": "string"
@@ -257,10 +261,6 @@
                     },
                     {
                         "properties": {
-                            "formulaIsVisible": {
-                                "description": "Formula to evaluate that determines the visibility of the form section. When the formula\nevaluates to \"false\" the form section will not be presented to the user.",
-                                "type": "string"
-                            },
                             "group": {
                                 "description": "Groups multiple form sections under a single top-level navigation item.",
                                 "type": "string"

@@ -1,5 +1,5 @@
+import Node, {NodeStateChange, StateChange_IsRequired} from "../Node";
 import FormulaRunner from "../../../js/formula-runner/FormulaRunner";
-import Node, {NodeStateChange, StateChange_CalculatedValue} from "../Node";
 import pathToChild from "./pathToChild";
 
 export default (root: Node, runner: FormulaRunner) => {
@@ -8,12 +8,11 @@ export default (root: Node, runner: FormulaRunner) => {
 
     root.traverse(node => {
         if (node.control) {
-
             // @ts-ignore
-            const {formulaCalculatedValue} = node.control;
+            const {formulaIsRequired} = node.control;
 
-            if (formulaCalculatedValue) {
-                const result = runner.run(formulaCalculatedValue);
+            if (formulaIsRequired) {
+                const result = runner.run(formulaIsRequired);
 
                 // @ts-ignore
                 if (result.errors) {
@@ -22,13 +21,13 @@ export default (root: Node, runner: FormulaRunner) => {
                     throw new Error(e);
                 }
 
-                const previousValue = node.getState().value;
+                const previousValue = node.getState().isRequired;
 
                 if (previousValue !== result.value) {
-                    node.setValue(result.value);
+                    node.setRequired(result.value);
 
                     changes.push({
-                        type: StateChange_CalculatedValue,
+                        type: StateChange_IsRequired,
                         path: pathToChild(node),
                         key: node.key,
                         value: result.value,
@@ -37,7 +36,7 @@ export default (root: Node, runner: FormulaRunner) => {
                 }
             }
         }
-    })
+    });
 
     return changes;
 }

@@ -73,6 +73,11 @@ export default class Node {
         return this;
     }
 
+    setRequired(required: boolean) {
+        this.state.isRequired = required;
+        return this;
+    }
+
     getChildren(): Map<string, Node> {
         return this.children;
     }
@@ -123,8 +128,6 @@ interface NodeState {
 export const StateChange_CalculatedValue = "CalculatedValue";
 export const StateChange_IsVisible = "IsVisible";
 export const StateChange_IsRequired = "IsRequired";
-
-export type NodeStateChangeType = ""
 
 export interface NodeStateChange {
     /**

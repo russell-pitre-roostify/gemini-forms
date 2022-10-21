@@ -3,7 +3,7 @@ import parseFormDefinition from "./parseFormDefinition";
 import updateCalculatedValues from "./updateCalculatedValues";
 import FormulaRunner, {defaultFunctions} from "../../../js/formula-runner/FormulaRunner";
 import defaultTemplateParser from "./defaultTemplateParser";
-import {StateChange_CalculatedValue} from "../Node";
+import {NodeStateChange, StateChange_CalculatedValue} from "../Node";
 
 const formDefinition: FormDefinition = {
     name: "A Form",
@@ -60,19 +60,14 @@ describe('updateCalculatedValues', () => {
             form.toChild("section:first_name")?.setValue("Tom")
             form.toChild("section:last_name")?.setValue("Petty")
 
-            let change;
+            let changes: NodeStateChange[];
 
-            try {
-                change = updateCalculatedValues(form, runner);
-            }catch (e) {
-                console.error(e);
-            }
+            changes = updateCalculatedValues(form, runner);
 
             const heading = form.toChild("section:heading")?.getState().value;
 
             expect(heading).toBe("Hello, Tom Petty")
-            // @ts-ignore
-            expect(change[0].type).toBe(StateChange_CalculatedValue);
+            expect(changes[0].type).toBe(StateChange_CalculatedValue);
         });
 
     })

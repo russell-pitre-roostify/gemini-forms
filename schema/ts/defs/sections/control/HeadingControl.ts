@@ -9,10 +9,6 @@ export type HeadingControl = {
      * Control options.
      */
     options: HeadingControlOptions
-    /**
-     * Formula for calculating a value.
-     */
-    formulaCalculatedValue?: string
 
 } | Control
 

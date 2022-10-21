@@ -10,7 +10,7 @@ export type AnalyticsControl = {
      */
     options: AnalyticsControlOptions
 
-} | Control
+}
 
 export type AnalyticsControlOptions = {
     /**
