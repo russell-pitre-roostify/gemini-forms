@@ -1,13 +1,8 @@
-import FormulaRunner, {defaultFunctions} from "../../../js/formula-runner/FormulaRunner";
-import defaultTemplateParser from "./defaultTemplateParser";
-import Node, {NodeStateChange} from "../Node";
+import FormulaRunner from "../../../js/formula-runner/FormulaRunner";
+import Node, {NodeStateChange, StateChange_CalculatedValue} from "../Node";
+import pathToChild from "./pathToChild";
 
-const updateCalculatedValues = (root: Node) => {
-
-    const runner = new FormulaRunner({
-        functions: defaultFunctions,
-        templateParser: defaultTemplateParser(root)
-    });
+const updateCalculatedValues = (root: Node, runner: FormulaRunner) => {
 
     const changes: NodeStateChange[] = [];
 
@@ -20,19 +15,26 @@ const updateCalculatedValues = (root: Node) => {
             if (formulaCalculatedValue) {
                 const result = runner.run(formulaCalculatedValue);
 
-                if (result?.error) {
-                    const e = result?.error.join("; ")
+                // @ts-ignore
+                if (result.errors) {
+                    // @ts-ignore
+                    const e = result.errors.join("; ")
                     throw new Error(e);
                 }
 
                 const previousValue = node.getState().value;
 
-                node.setValue(result.value);
+                if (previousValue !== result.value) {
+                    node.setValue(result.value);
 
-                changes.push({
-                    value: result.value,
-                    previousValue: previousValue
-                })
+                    changes.push({
+                        type: StateChange_CalculatedValue,
+                        path: pathToChild(node),
+                        key: node.key,
+                        value: result.value,
+                        previousValue: previousValue
+                    })
+                }
             }
         }
     })

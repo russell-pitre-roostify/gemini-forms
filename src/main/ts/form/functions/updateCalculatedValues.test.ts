@@ -1,6 +1,9 @@
 import {ControlType, FormDefinition} from "@roostify/gemini-forms-schema";
 import parseFormDefinition from "./parseFormDefinition";
 import updateCalculatedValues from "./updateCalculatedValues";
+import FormulaRunner, {defaultFunctions} from "../../../js/formula-runner/FormulaRunner";
+import defaultTemplateParser from "./defaultTemplateParser";
+import {StateChange_CalculatedValue} from "../Node";
 
 const formDefinition: FormDefinition = {
     name: "A Form",
@@ -49,14 +52,27 @@ describe('updateCalculatedValues', () => {
         it('should update heading value', () => {
             const form = parseFormDefinition(formDefinition)
 
+            let runner = new FormulaRunner({
+                functions: defaultFunctions,
+                templateParser: defaultTemplateParser(form)
+            })
+
             form.toChild("section:first_name")?.setValue("Tom")
             form.toChild("section:last_name")?.setValue("Petty")
 
-            updateCalculatedValues(form);
+            let change;
+
+            try {
+                change = updateCalculatedValues(form, runner);
+            }catch (e) {
+                console.error(e);
+            }
 
             const heading = form.toChild("section:heading")?.getState().value;
 
             expect(heading).toBe("Hello, Tom Petty")
+            // @ts-ignore
+            expect(change[0].type).toBe(StateChange_CalculatedValue);
         });
 
     })

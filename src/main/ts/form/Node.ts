@@ -41,16 +41,21 @@ export default class Node {
     }
 
     toChild(path: string): Node | undefined {
-        if (path.includes(":")) {
+        if (path.includes(PathSeparator)) {
             let node: Node | undefined = this;
-            path.split(":").forEach(k => {
-                if(node) {
+            path.split(PathSeparator).forEach(k => {
+                if (node) {
                     node = node?.toChild(k)
                 }
             });
             return node;
         }
-        return this.children.get(path);
+
+        if (this.children.has(path)) {
+            return this.children.get(path);
+        }
+
+        return undefined;
     }
 
     setParent(parent: Node) {
@@ -74,6 +79,13 @@ export default class Node {
 
     getState(): NodeState {
         return this.state;
+    }
+
+    getParent(): Node | undefined {
+        if (this.parent) {
+            return this.parent;
+        }
+        return undefined;
     }
 
 }
@@ -108,7 +120,25 @@ interface NodeState {
     isRequired: boolean;
 }
 
+export const StateChange_CalculatedValue = "CalculatedValue";
+export const StateChange_IsVisible = "IsVisible";
+export const StateChange_IsRequired = "IsRequired";
+
+export type NodeStateChangeType = ""
+
 export interface NodeStateChange {
+    /**
+     * Type of state change.
+     */
+    type: typeof StateChange_CalculatedValue | typeof StateChange_IsVisible | typeof StateChange_IsRequired
+    /**
+     * Path to child node from the root that changed.
+     */
+    path: string | undefined,
+    /**
+     * Node key change occurred at.
+     */
+    key: string,
     /**
      * The previous value before the change occurred.
      */
@@ -118,3 +148,5 @@ export interface NodeStateChange {
      */
     value: unknown;
 }
+
+export const PathSeparator = ":"

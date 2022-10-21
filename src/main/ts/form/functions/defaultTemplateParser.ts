@@ -1,8 +1,8 @@
-import Node from "../Node";
+import Node, {PathSeparator} from "../Node";
 
 const defaultTemplateParser = (root: Node) => (template: string) => {
 
-    const paths = template.split(":")
+    const paths = template.split(PathSeparator)
 
     let node = root;
 

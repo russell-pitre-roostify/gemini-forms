@@ -7,14 +7,26 @@ import updateCalculatedValues from "./form/functions/updateCalculatedValues";
 
 export type SubscriberFunction = (changes: NodeStateChange[]) => void
 
+export type BatchOperationSetValue = {
+    /**
+     * Path to node.
+     */
+    path: string
+    /**
+     * New node value.
+     */
+    value: unknown
+}
+
 /**
  * Represents a new instance of a form derived from a FormDefinition.
  */
 export default class FormInstance {
 
-    private root: Node;
+    private readonly root: Node;
+    private readonly formulaRunner: FormulaRunner;
+
     private subscriberFunction: SubscriberFunction | undefined;
-    private formulaRunner: FormulaRunner;
 
     constructor(definition: FormDefinition) {
         this.root = parseFormDefinition(definition);
@@ -24,9 +36,17 @@ export default class FormInstance {
         });
     }
 
+    batchSetValues(values: BatchOperationSetValue[]) {
+        values.forEach(operation => {
+            this.root.toChild(operation.path)?.setValue(operation.value);
+        })
+        const changes = updateCalculatedValues(this.root, this.formulaRunner);
+        this.callSubscriberFunction(changes);
+    }
+
     setValue(path: string, value: any) {
         this.root.toChild(path)?.setValue(value);
-        const changes = updateCalculatedValues(this.root);
+        const changes = updateCalculatedValues(this.root, this.formulaRunner);
         this.callSubscriberFunction(changes);
     }
 
