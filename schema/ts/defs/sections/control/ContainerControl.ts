@@ -1,20 +1,19 @@
-import {ControlType, IControlType, IHasChildrenControls, IHasFormulaIsVisible} from "../Control";
+import {ControlType, IHasChildrenControls, IHasFormulaIsVisible} from "../Control";
 
-export type ContainerControl = {
+export interface ContainerControl extends IHasChildrenControls, IHasFormulaIsVisible {
     /**
      * Control type.
      */
-    type: ControlType.Container,
+    type: ControlType.Container;
     /**
      * Control options.
      */
-    options: ContainerControlOptions
-
-} & IControlType & IHasChildrenControls & IHasFormulaIsVisible
+    options: ContainerControlOptions;
+}
 
 export type ContainerControlOptions = {
     /**
      * Orientation of container layout.
      */
-    orientation: "VERTICAL" | "HORIZONTAL"
+    orientation: "VERTICAL" | "HORIZONTAL";
 }

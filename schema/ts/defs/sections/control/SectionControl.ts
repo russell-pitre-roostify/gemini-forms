@@ -1,6 +1,6 @@
-import {ControlType, IControlType, IHasChildrenControls, IHasFormulaIsVisible} from "../Control";
+import {ControlType, IHasChildrenControls, IHasFormulaIsVisible} from "../Control";
 
-export type SectionControl = {
+export interface SectionControl extends IHasChildrenControls, IHasFormulaIsVisible {
     /**
      * Control type.
      */
@@ -8,10 +8,9 @@ export type SectionControl = {
     /**
      * Title of section.
      */
-    title: string;
+    title?: string;
     /**
      * Groups multiple form sections under a single top-level navigation item.
      */
-    group: string;
-
-} & IControlType & IHasChildrenControls & IHasFormulaIsVisible
+    group?: string;
+}

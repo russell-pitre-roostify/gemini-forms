@@ -1,6 +1,7 @@
 import Node, {NodeStateChange, StateChange_IsRequired} from "../Node";
 import FormulaRunner from "../../../js/formula-runner/FormulaRunner";
 import pathToChild from "./pathToChild";
+import {IHasFormulaIsRequired} from "@roostify/gemini-forms-schema";
 
 export default (root: Node, runner: FormulaRunner) => {
 
@@ -8,18 +9,16 @@ export default (root: Node, runner: FormulaRunner) => {
 
     root.traverse(node => {
         if (node.control) {
-            // @ts-ignore
-            const {formulaIsRequired} = node.control;
+
+            const {formulaIsRequired} = node.control as IHasFormulaIsRequired;
 
             if (formulaIsRequired) {
                 const result = runner.run(formulaIsRequired);
 
-                // @ts-ignore
-                if (result.errors) {
-                    // @ts-ignore
-                    const e = result.errors.join("; ")
-                    throw new Error(e);
-                }
+                //if (result.errors) {
+                //    const e = result.errors.join("; ")
+                //    throw new Error(e);
+                //}
 
                 const previousValue = node.getState().isRequired;
 

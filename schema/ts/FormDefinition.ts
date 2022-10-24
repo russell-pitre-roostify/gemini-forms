@@ -2,7 +2,7 @@ import {DataSources} from "./defs/data-sources/DataSources";
 import {Sections} from "./defs/sections/Sections";
 import {Version} from "./defs/version/Version";
 
-export type FormDefinition = {
+export interface FormDefinition {
     /**
      * Name of the form.
      */

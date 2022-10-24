@@ -1,6 +1,7 @@
 import Node, {NodeStateChange, StateChange_IsVisible} from "../Node";
 import FormulaRunner from "../../../js/formula-runner/FormulaRunner";
 import pathToChild from "./pathToChild";
+import {IHasFormulaIsVisible} from "@roostify/gemini-forms-schema";
 
 export default (root: Node, runner: FormulaRunner) => {
 
@@ -9,18 +10,15 @@ export default (root: Node, runner: FormulaRunner) => {
     root.traverse(node => {
         if (node.control) {
 
-            // @ts-ignore
-            const {formulaIsVisible} = node.control;
+            const {formulaIsVisible} = node.control as IHasFormulaIsVisible;
 
             if (formulaIsVisible) {
                 const result = runner.run(formulaIsVisible);
 
-                // @ts-ignore
-                if (result.errors) {
-                    // @ts-ignore
-                    const e = result.errors.join("; ")
-                    throw new Error(e);
-                }
+                // if (result.errors) {
+                //    const e = result.errors.join("; ")
+                //    throw new Error(e);
+                //}
 
                 const previousValue = node.getState().isVisible;
 
@@ -36,7 +34,6 @@ export default (root: Node, runner: FormulaRunner) => {
                     })
                 }
             }
-
 
         }
     });

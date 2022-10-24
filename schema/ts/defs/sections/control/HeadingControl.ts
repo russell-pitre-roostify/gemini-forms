@@ -1,25 +1,20 @@
-import {
-    ControlType,
-    IControlType,
-    IHasFormulaCalculatedValue,
-    IHasFormulaIsVisible
-} from "../Control";
+import {ControlType, IHasFormulaCalculatedValue, IHasFormulaIsVisible} from "../Control";
 
-export type HeadingControl = {
+export interface HeadingControl extends IHasFormulaIsVisible, IHasFormulaCalculatedValue {
     /**
      * Control type.
      */
-    type: ControlType.Heading,
+    type: ControlType.Heading;
     /**
      * Control options.
      */
-    options: HeadingControlOptions
+    options: HeadingControlOptions;
 
-} & IControlType & IHasFormulaCalculatedValue & IHasFormulaIsVisible
+}
 
 export type HeadingControlOptions = {
     /**
      * Heading level
      */
-    level: 1 | 2 | 3 | 4 | 5 | 6
+    level: 1 | 2 | 3 | 4 | 5 | 6;
 }

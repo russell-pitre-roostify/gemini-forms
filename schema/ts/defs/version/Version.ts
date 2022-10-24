@@ -1,4 +1,4 @@
-export type Version = {
+export interface Version {
     /**
      * Form version identifier.
      */

@@ -26,7 +26,7 @@ export interface StaticDataSource extends DataSource {
     /**
      * Type of data source.
      */
-    data: Array<any>;
+    data: Array<unknown>;
 }
 
 export interface RemoteDataSource extends DataSource {

@@ -1,25 +1,19 @@
-import {
-    ControlType,
-    IControlType,
-    IHasFormulaCalculatedValue,
-    IHasFormulaIsVisible
-} from "../Control";
+import {ControlType} from "../Control";
 
-export type AnalyticsControl = {
+export interface AnalyticsControl {
     /**
      * Control type.
      */
-    type: ControlType.Analytics,
+    type: ControlType.Analytics;
     /**
      * Control options.
      */
-    options: AnalyticsControlOptions
-
-} & IControlType & IHasFormulaCalculatedValue & IHasFormulaIsVisible
+    options: AnalyticsControlOptions;
+}
 
 export type AnalyticsControlOptions = {
     /**
-     * ?
+     * Value used by analytics library to indicate the current page.
      */
-    value: string
+    value: string;
 }

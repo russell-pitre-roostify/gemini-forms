@@ -1,52 +1,45 @@
 import {Controls} from "./Controls";
 import {AnalyticsControl} from "./control/AnallyticsControl";
 import {HeadingControl} from "./control/HeadingControl";
-import {SectionControl} from "./control/SectionControl";
 import {TextInputControl} from "./control/TextInputControl";
 import {ContainerControl} from "./control/ContainerControl";
+import {RepeaterControl} from "./control/RepeaterControl";
 
 export type Control =
     | AnalyticsControl
     | HeadingControl
-    | SectionControl
     | TextInputControl
     | ContainerControl
+    | RepeaterControl
 
-export interface IControlType {
-    /**
-     * Type of control.
-     */
-    type: ControlType;
-}
-
-export type IHasChildrenControls = {
+export interface IHasChildrenControls {
     /**
      * Children controls.
      */
-    controls: Controls
+    controls?: Controls;
 }
 
-export type IHasFormulaCalculatedValue = {
+export interface IHasFormulaCalculatedValue {
     /**
      * Formula for calculating the controls value.
      */
-    formulaCalculatedValue?: string
+    formulaCalculatedValue?: string | null;
 }
 
-export type IHasFormulaIsVisible = {
+export interface IHasFormulaIsVisible {
     /**
      * Formula to evaluate that determines the visibility of the control. When the formula
      * evaluates to "false" the control will not be presented to the user.
      */
-    formulaIsVisible?: string;
+    formulaIsVisible?: string | null;
 }
 
-export type IHasFormulaIsRequired = {
+export interface IHasFormulaIsRequired {
     /**
      * Formula to evaluate that determines whether control is required. When the formula
      * evaluates to "false" the control will not require a value to be entered.
      */
-    formulaIsRequired?: string;
+    formulaIsRequired?: string | null;
 }
 
 export enum ControlType {

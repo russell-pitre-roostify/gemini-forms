@@ -1,0 +1,126 @@
+{
+  "name": "Roostify Test Form",
+  "description": "This form definition is used to validate the output of the schema generation.",
+  "accountId": "4446a023-52c8-4d4d-bef7-bef6fcc73f77",
+  "version": {
+    "id": "8ab13e6e-2fda-4b14-8e05-deef4e91ee72",
+    "number": 1.0,
+    "status": "DRAFT"
+  },
+  "dataSources": {
+    "marital_status": {
+      "description": "A list of marital statuses",
+      "type": "ARRAY",
+      "data": [
+        {
+          "id": "1",
+          "label": "Unmarried",
+          "sort": 2
+        },
+        {
+          "id": "2",
+          "label": "Married",
+          "sort": 0
+        },
+        {
+          "id": "3",
+          "label": "Separated",
+          "sort": 1
+        }
+      ]
+    },
+    "yes_no": {
+      "type": "ARRAY",
+      "description": "Two options, yes and no",
+      "data": [
+        {
+          "id": "1",
+          "label": "Yes",
+          "sort": 0
+        },
+        {
+          "id": "2",
+          "label": "No",
+          "sort": 1
+        }
+      ]
+    },
+    "us_states": {
+      "type": "REMOTE",
+      "options": {
+        "url": "http://api.usps.com/us_states",
+        "method": "POST",
+        "body": {}
+      }
+    }
+  },
+  "sections": {
+    "personal_information": {
+      "type": "section",
+      "title": "Personal Information",
+      "group": "Borrower",
+      "formulaIsVisible": "val(true) === true",
+      "controls": {
+        "analytics": {
+          "type": "analytics",
+          "options": {
+            "value": "sample value"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "formulaCalculatedValue": "hello",
+          "formulaIsVisible": "true",
+          "options": {
+            "level": 3
+          }
+        },
+        "container_borrower_name": {
+          "type": "container",
+          "formulaIsVisible": null,
+          "options": {
+            "orientation": "HORIZONTAL"
+          },
+          "controls": {
+            "first_name": {
+              "type": "text",
+              "formulaIsVisible": null,
+              "options": {
+                "maxLength": 100
+              }
+            },
+            "last_name": {
+              "type": "text",
+              "formulaIsVisible": null,
+              "options": {
+                "maxLength": 100
+              }
+            },
+            "full_name": {
+              "type": "text",
+              "formulaCalculatedValue": "val(`personal_information:first_name`) + ' ' + val(`personal_information:last_name`)",
+              "options": {
+                "maxLength": 100
+              }
+            }
+          }
+        },
+        "repeater_phone_numbers": {
+          "type": "repeater",
+          "options": {
+            "maxItems": 5
+          },
+          "controls": {
+            "phone_number": {
+              "type": "text",
+              "formulaIsRequired": "true",
+              "options": {
+                "maxLength": 100
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import FormulaRunner from '../src/main/js/formula-runner/FormulaRunner.js';
 import _ from 'lodash';
-import sampleFormDefinition from '../schema/js/sample-form.json';
+import sampleFormDefinition from '../schema/json/sample-form.json';
 import createFormTree from "../src/main/js/tree/createFormTree.js";
 import updateVisibility from "../src/main/js/tree/updateVisibility.js";
 import updateCalculatedValues from "../src/main/js/tree/updateCalculatedValues.js";

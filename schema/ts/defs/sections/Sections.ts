@@ -1,6 +1,6 @@
 import {SectionControl} from "./control/SectionControl";
 
-export type Sections = {
+export interface Sections {
     /**
      * Section.
      */

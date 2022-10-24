@@ -1,6 +1,11 @@
 import Node from "../Node";
-import {Control, Controls, FormDefinition, Sections} from "@roostify/gemini-forms-schema";
-import {IHasChildrenControls} from "@roostify/gemini-forms-schema/defs/sections/Control";
+import {
+    Control,
+    Controls,
+    FormDefinition,
+    IHasChildrenControls,
+    Sections
+} from "@roostify/gemini-forms-schema";
 
 /**
  * Generates a tree data structure matching the same shape as the form definition. Each node in the

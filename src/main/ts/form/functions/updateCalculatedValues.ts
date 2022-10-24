@@ -1,6 +1,7 @@
 import FormulaRunner from "../../../js/formula-runner/FormulaRunner";
 import Node, {NodeStateChange, StateChange_CalculatedValue} from "../Node";
 import pathToChild from "./pathToChild";
+import {IHasFormulaCalculatedValue} from "@roostify/gemini-forms-schema";
 
 export default (root: Node, runner: FormulaRunner) => {
 
@@ -9,18 +10,15 @@ export default (root: Node, runner: FormulaRunner) => {
     root.traverse(node => {
         if (node.control) {
 
-            // @ts-ignore
-            const {formulaCalculatedValue} = node.control;
+            const {formulaCalculatedValue} = node.control as IHasFormulaCalculatedValue;
 
             if (formulaCalculatedValue) {
                 const result = runner.run(formulaCalculatedValue);
 
-                // @ts-ignore
-                if (result.errors) {
-                    // @ts-ignore
-                    const e = result.errors.join("; ")
-                    throw new Error(e);
-                }
+                //if (result.errors) {
+                //    const e = result.errors.join("; ")
+                //    throw new Error(e);
+                //}
 
                 const previousValue = node.getState().value;
 

@@ -1,4 +1,4 @@
-import Node, {NodeStateChange, StateChange_IsVisible} from "../Node";
+import Node, {StateChange_IsVisible} from "../Node";
 import FormulaRunner, {defaultFunctions} from "../../../js/formula-runner/FormulaRunner";
 import {ControlType, FormDefinition} from "@roostify/gemini-forms-schema";
 import parseFormDefinition from "./parseFormDefinition";
@@ -24,7 +24,7 @@ const formDefinition: FormDefinition = {
                 },
                 "full_name": {
                     type: ControlType.Text,
-                    formulaIsRequired: '`section:do_you_agree` === true',
+                    formulaIsVisible: '`section:do_you_agree` === true',
                     options: {
                         maxLength: 100
                     }
@@ -59,9 +59,7 @@ describe('updateVisibility', () => {
 
             form.toChild("section:do_you_agree")?.setValue(true)
 
-            let changes: NodeStateChange[];
-
-            changes = updateVisibility(form, runner);
+            const changes = updateVisibility(form, runner);
 
             const isFullNameVisible = form.toChild("section:full_name")?.getState().isVisible;
 
