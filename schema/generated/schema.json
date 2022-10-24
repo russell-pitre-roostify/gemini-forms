@@ -1,0 +1,395 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "definitions": {
+        "AnalyticsControl": {
+            "additionalProperties": false,
+            "properties": {
+                "options": {
+                    "additionalProperties": false,
+                    "description": "Control options.",
+                    "properties": {
+                        "value": {
+                            "description": "Value used by analytics library to indicate the current page.",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": {
+                    "description": "Control type.",
+                    "enum": [
+                        "analytics"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "ContainerControl": {
+            "additionalProperties": false,
+            "properties": {
+                "controls": {
+                    "$ref": "#/definitions/Controls",
+                    "description": "Children controls."
+                },
+                "formulaIsVisible": {
+                    "description": "Formula to evaluate that determines the visibility of the control. When the formula\nevaluates to \"false\" the control will not be presented to the user.",
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "options": {
+                    "additionalProperties": false,
+                    "description": "Control options.",
+                    "properties": {
+                        "orientation": {
+                            "description": "Orientation of container layout.",
+                            "enum": [
+                                "HORIZONTAL",
+                                "VERTICAL"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": {
+                    "description": "Control type.",
+                    "enum": [
+                        "container"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Controls": {
+            "additionalProperties": {
+                "anyOf": [
+                    {
+                        "$ref": "#/definitions/AnalyticsControl"
+                    },
+                    {
+                        "$ref": "#/definitions/HeadingControl"
+                    },
+                    {
+                        "$ref": "#/definitions/TextInputControl"
+                    },
+                    {
+                        "$ref": "#/definitions/ContainerControl"
+                    },
+                    {
+                        "$ref": "#/definitions/RepeaterControl"
+                    }
+                ]
+            },
+            "type": "object"
+        },
+        "DataSources": {
+            "additionalProperties": {
+                "anyOf": [
+                    {
+                        "$ref": "#/definitions/StaticDataSource"
+                    },
+                    {
+                        "$ref": "#/definitions/RemoteDataSource"
+                    }
+                ]
+            },
+            "type": "object"
+        },
+        "FormPublishingStatus": {
+            "description": "Current publishing status of form",
+            "enum": [
+                "ACTIVE",
+                "DRAFT"
+            ],
+            "type": "string"
+        },
+        "HeadingControl": {
+            "additionalProperties": false,
+            "properties": {
+                "formulaCalculatedValue": {
+                    "description": "Formula for calculating the controls value.",
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "formulaIsVisible": {
+                    "description": "Formula to evaluate that determines the visibility of the control. When the formula\nevaluates to \"false\" the control will not be presented to the user.",
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "options": {
+                    "additionalProperties": false,
+                    "description": "Control options.",
+                    "properties": {
+                        "level": {
+                            "description": "Heading level",
+                            "enum": [
+                                1,
+                                2,
+                                3,
+                                4,
+                                5,
+                                6
+                            ],
+                            "type": "number"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": {
+                    "description": "Control type.",
+                    "enum": [
+                        "heading"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "RemoteDataSource": {
+            "additionalProperties": false,
+            "properties": {
+                "description": {
+                    "description": "Description of the data source.",
+                    "type": "string"
+                },
+                "options": {
+                    "$ref": "#/definitions/RemoteDataSourceOptions",
+                    "description": "Remote options for data source."
+                },
+                "type": {
+                    "description": "Type of data source.",
+                    "enum": [
+                        "REMOTE"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "RemoteDataSourceOptions": {
+            "additionalProperties": false,
+            "properties": {
+                "body": {
+                    "additionalProperties": true,
+                    "description": "POST body.",
+                    "properties": {},
+                    "type": "object"
+                },
+                "method": {
+                    "description": "HTTP Method.",
+                    "enum": [
+                        "GET",
+                        "POST"
+                    ],
+                    "type": "string"
+                },
+                "params": {
+                    "additionalProperties": true,
+                    "description": "URL parameters.",
+                    "properties": {},
+                    "type": "object"
+                },
+                "url": {
+                    "description": "Url to call to retrieve data",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "RepeaterControl": {
+            "additionalProperties": false,
+            "properties": {
+                "controls": {
+                    "$ref": "#/definitions/Controls",
+                    "description": "Children controls."
+                },
+                "formulaIsVisible": {
+                    "description": "Formula to evaluate that determines the visibility of the control. When the formula\nevaluates to \"false\" the control will not be presented to the user.",
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "options": {
+                    "additionalProperties": false,
+                    "description": "Control options.",
+                    "properties": {
+                        "maxItems": {
+                            "description": "The maximum number items that can be added.",
+                            "type": "number"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": {
+                    "description": "Control type.",
+                    "enum": [
+                        "repeater"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "SectionControl": {
+            "additionalProperties": false,
+            "properties": {
+                "controls": {
+                    "$ref": "#/definitions/Controls",
+                    "description": "Children controls."
+                },
+                "formulaIsVisible": {
+                    "description": "Formula to evaluate that determines the visibility of the control. When the formula\nevaluates to \"false\" the control will not be presented to the user.",
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "group": {
+                    "description": "Groups multiple form sections under a single top-level navigation item.",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Title of section.",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "Control type.",
+                    "enum": [
+                        "section"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Sections": {
+            "additionalProperties": {
+                "$ref": "#/definitions/SectionControl"
+            },
+            "type": "object"
+        },
+        "StaticDataSource": {
+            "additionalProperties": false,
+            "properties": {
+                "data": {
+                    "description": "Type of data source.",
+                    "items": {},
+                    "type": "array"
+                },
+                "description": {
+                    "description": "Description of the data source.",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "Type of data source.",
+                    "enum": [
+                        "ARRAY"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "TextInputControl": {
+            "additionalProperties": false,
+            "properties": {
+                "formulaCalculatedValue": {
+                    "description": "Formula for calculating the controls value.",
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "formulaIsRequired": {
+                    "description": "Formula to evaluate that determines whether control is required. When the formula\nevaluates to \"false\" the control will not require a value to be entered.",
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "formulaIsVisible": {
+                    "description": "Formula to evaluate that determines the visibility of the control. When the formula\nevaluates to \"false\" the control will not be presented to the user.",
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "options": {
+                    "additionalProperties": false,
+                    "description": "Control options.",
+                    "properties": {
+                        "maxLength": {
+                            "description": "Max number of characters user is allowed to enter.",
+                            "type": "number"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": {
+                    "description": "Control type.",
+                    "enum": [
+                        "text"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Version": {
+            "additionalProperties": false,
+            "properties": {
+                "id": {
+                    "description": "Form version identifier.",
+                    "type": "string"
+                },
+                "number": {
+                    "description": "Version number of the form.",
+                    "type": "number"
+                },
+                "status": {
+                    "$ref": "#/definitions/FormPublishingStatus",
+                    "description": "Publishing status the form."
+                }
+            },
+            "type": "object"
+        }
+    },
+    "properties": {
+        "accountId": {
+            "description": "Account ID associated with the form.",
+            "type": "string"
+        },
+        "dataSources": {
+            "$ref": "#/definitions/DataSources",
+            "description": "A datasource provides data to form controls for rendering, such as a list of US States for\na select control. A datasource can include a \"data\" property consisting of a static array\nof data elements, or can be a \"remote\" data source having an \"options\" property containing\ndetails of how to make remote calls."
+        },
+        "description": {
+            "description": "Describes the purpose of the form.",
+            "type": "string"
+        },
+        "name": {
+            "description": "Name of the form.",
+            "type": "string"
+        },
+        "sections": {
+            "$ref": "#/definitions/Sections",
+            "description": "Form sections"
+        },
+        "version": {
+            "$ref": "#/definitions/Version",
+            "description": "Form version information."
+        }
+    },
+    "type": "object"
+}
+
